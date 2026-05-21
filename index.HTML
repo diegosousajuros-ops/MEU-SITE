@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão de Contratos | Diego Sousa Silva da Costa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a; 
+            --accent: #d4af37; 
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --text-light: #f8fafc;
+            --success: #10b981;
+            --whatsapp: #25d366;
+            --danger: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
+
+        body {
+            background: linear-gradient(-45deg, #070e1a, #132241, #020617, #0d1e3d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Esferas de Vidro Flutuantes (Efeito Animado Premium) */
+        .glass-orb {
+            position: absolute; border-radius: 50%; filter: blur(40px); z-index: -1;
+            background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%);
+            animation: floatOrb 20s infinite ease-in-out alternate;
+        }
+        .orb-1 { top: 10%; left: -10%; width: 400px; height: 400px; }
+        .orb-2 { top: 60%; right: -5%; width: 500px; height: 500px; animation-delay: -5s; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0) 70%); }
+        
+        @keyframes floatOrb { 100% { transform: translate(50px, 50px); } }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+
+        /* --- Efeito Glassmorphism Premium --- */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .glass:hover {
+            border-color: var(--glass-highlight);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        /* Novo Efeito de Brilho (Shine) para os botões e selos */
+        .shine-effect { position: relative; overflow: hidden; }
+        .shine-effect::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg); animation: shineGlow 5s infinite;
+        }
+        @keyframes shineGlow { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* --- Header & Abas --- */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            padding: 15px 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        
+        .logo h1 { color: var(--accent); font-size: 1.4rem; text-transform: uppercase; letter-spacing: 1px; }
+        .logo p { font-size: 0.8rem; color: #94a3b8; }
+
+        .nav-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tab-btn {
+            background: rgba(255,255,255,0.05); color: #cbd5e1; border: 1px solid var(--glass-border);
+            padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;
+            transition: all 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .tab-btn:hover, .tab-btn.active {
+            background: rgba(212, 175, 55, 0.15); border: 1px solid var(--accent); color: var(--accent);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        /* --- Main Content & Animações --- */
+        main { padding: 40px 0; min-height: 80vh; position: relative; }
+        .tab-content { display: none; animation: fadeInUp 0.6s ease forwards; opacity: 0; transform: translateY(20px); }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+
+        /* --- Aba: Início --- */
+        .hero-section { text-align: center; margin-bottom: 30px; }
+        .hero-section h2 { font-size: 3rem; margin-bottom: 15px; background: linear-gradient(to right, #fff, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-section p { font-size: 1.2rem; color: #cbd5e1; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+        
+        /* Detalhes Premium na Tela Inicial */
+        .premium-features { display: flex; justify-content: center; gap: 25px; margin-top: 15px; color: var(--accent); font-weight: 600; font-size: 0.95rem; flex-wrap: wrap; }
+        .premium-features span { display: flex; align-items: center; gap: 5px; }
+
+        .trust-badge {
+            display: inline-block; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success);
+            color: var(--success); padding: 10px 25px; border-radius: 30px; font-weight: bold; margin-top: 25px;
+            animation: float 4s ease-in-out infinite; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); font-size: 1.1rem;
+        }
+
+        /* Selos de Serviços na Home */
+        .services-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 35px; margin-bottom: 15px;}
+        .service-badge { padding: 12px 20px; font-size: 1.05rem; font-weight: bold; color: #fff; border-radius: 12px; display: flex; align-items: center; gap: 8px;}
+        .service-badge.highlight { border-color: var(--success); color: var(--success); background: rgba(16, 185, 129, 0.05); }
+
+        /* --- SEÇÃO: DESTAQUE NA MÍDIA NACIONAL --- */
+        .media-highlight { padding: 35px; text-align: center; margin: 30px 0; border: 2px solid rgba(212,175,55,0.2); }
+        .media-highlight h3 { color: var(--accent); font-size: 1.8rem; margin-bottom: 15px; text-transform: uppercase;}
+        .media-highlight p { color: #cbd5e1; font-size: 1.1rem; margin-bottom: 25px; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;}
+        
+        .tv-badges-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: stretch; }
+        .tv-badge { 
+            background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 20px 25px; 
+            border-radius: 12px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+            min-width: 220px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .tv-badge:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .tv-icon { font-size: 2.5rem; margin-bottom: 5px; }
+        .tv-network { color: #fff; font-size: 1.2rem; font-weight: bold; letter-spacing: 1px; }
+        .tv-show { color: var(--accent); font-size: 1rem; font-weight: 600; text-transform: uppercase; }
+
+        .offer-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: stretch; margin-top: 30px;}
+        @media (max-width: 768px) { .offer-grid { grid-template-columns: 1fr; } }
+
+        /* Etapas do Serviço Simplificadas na Home */
+        .process-info { padding: 35px; }
+        .process-info h3 { font-size: 1.8rem; margin-bottom: 25px; color: var(--accent); }
+        .process-step { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; position: relative; }
+        .process-step:not(:last-child)::after {
+            content: ''; position: absolute; left: 19px; top: 45px; width: 2px; height: calc(100% - 20px);
+            background: rgba(212, 175, 55, 0.2);
+        }
+        .step-icon { 
+            background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(212,175,55,0.1)); border: 1px solid var(--accent);
+            color: var(--accent); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; z-index: 2;
+        }
+        .step-text h4 { font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
+        .step-text p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; }
+        .highlight-reduction { color: var(--success); font-weight: bold; }
+
+        /* Cartão de Preço Animado (Foco na Análise Gratuita) */
+        .price-card { 
+            padding: 40px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
+            border: 2px solid rgba(212,175,55,0.4);
+        }
+        .price-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+            animation: rotateGlow 8s linear infinite; z-index: -1;
+        }
+        @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
+
+        .discount-badge {
+            position: absolute; top: 20px; right: -35px; background: var(--success); color: white;
+            padding: 8px 45px; font-weight: bold; transform: rotate(45deg); font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); letter-spacing: 1px;
+        }
+
+        .price-card h3 { font-size: 1.8rem; color: #fff; margin-bottom: 10px; }
+        
+        .price-box { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid var(--glass-border); }
+        .old-price { text-decoration: line-through; color: #94a3b8; font-size: 1.3rem; margin-bottom: 5px;}
+        .new-price { font-size: 4rem; font-weight: 800; color: var(--accent); line-height: 1; margin: 0; text-shadow: 0 0 25px rgba(212,175,55,0.4); animation: pulse 2s infinite; }
+        
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
+
+        /* NOVO: Barra de Vagas Restantes */
+        .spots-container {
+            background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px; margin: 15px 0; border: 1px solid var(--glass-border);
+        }
+        .spots-text { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 8px; font-weight: bold; line-height: 1.4;}
+        .spots-text span { color: var(--danger); font-size: 1.05rem;}
+        .spots-bar { background: rgba(255,255,255,0.1); height: 12px; border-radius: 10px; overflow: hidden; position: relative; }
+        .spots-fill { 
+            background: linear-gradient(90deg, #ef4444, #f97316); width: 53.33%; height: 100%; 
+            border-radius: 10px; box-shadow: 0 0 10px rgba(239, 68, 68, 0.6); animation: pulse-bar 2s infinite; 
+        }
+        @keyframes pulse-bar { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
+
+        /* Formas de Pagamento */
+        .payment-methods {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 8px; padding: 15px; margin-top: 20px; font-size: 0.9rem; color: #cbd5e1; text-align: left;
+        }
+        .payment-methods p { color: var(--accent); font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .payment-methods ul { list-style: none; padding: 0; }
+        .payment-methods li { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; line-height: 1.4; }
+
+        .countdown { display: flex; justify-content: center; gap: 15px; margin-top: 25px; margin-bottom: 25px; }
+        .time-box { background: rgba(0,0,0,0.5); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.4); min-width: 75px; box-shadow: inset 0 0 10px rgba(239, 68, 68, 0.1); }
+        .time-box span { display: block; font-size: 2rem; font-weight: bold; color: #fff; line-height: 1; }
+        .time-box small { font-size: 0.75rem; color: var(--danger); text-transform: uppercase; font-weight: bold; }
+
+        /* Botões de Ação */
+        .btn-group { display: flex; flex-direction: column; gap: 15px; }
+
+        .btn-action {
+            display: inline-block; width: 100%; background: var(--whatsapp); color: #fff; text-decoration: none;
+            padding: 18px; border-radius: 10px; font-size: 1.2rem; font-weight: bold; text-transform: uppercase;
+            transition: all 0.3s; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); border: 1px solid rgba(255,255,255,0.2);
+            position: relative; overflow: hidden;
+        }
+        .btn-action::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg); animation: shine 3s infinite;
+        }
+        @keyframes shine { 100% { left: 200%; } }
+        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.5); background: #1fae51; }
+
+        .btn-secondary {
+            display: inline-block; width: 100%; background: rgba(212,175,55,0.05); color: var(--accent);
+            text-decoration: none; padding: 15px; border-radius: 10px; font-size: 1rem; font-weight: bold; text-transform: uppercase;
+            transition: all 0.3s; border: 2px solid var(--accent); backdrop-filter: blur(5px);
+        }
+        .btn-secondary:hover {
+            background: rgba(212,175,55,0.2); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212,175,55,0.2); color: #fff;
+        }
+
+        /* --- Aba: Dúvidas Frequentes (FAQ) --- */
+        .faq-section { max-width: 900px; margin: 0 auto; padding: 40px; }
+        .faq-section h2 { text-align: center; color: var(--accent); margin-bottom: 30px; font-size: 2.2rem; }
+        
+        .law-section { margin-bottom: 40px; padding: 30px; border-left: 5px solid var(--accent); background: rgba(212,175,55,0.05); border-radius: 0 12px 12px 0;}
+        .law-section h3 { font-size: 1.6rem; color: #fff; margin-bottom: 15px; }
+        .law-section p { color: #cbd5e1; font-size: 1.05rem; line-height: 1.7; margin-bottom: 10px;}
+        .law-highlight { color: var(--accent); font-weight: bold; }
+
+        .faq-item { margin-bottom: 20px; border-left: 4px solid var(--accent); padding-left: 20px; background: rgba(255,255,255,0.02); padding-top: 20px; padding-bottom: 20px; border-radius: 0 8px 8px 0;}
+        .faq-question { font-size: 1.25rem; font-weight: bold; color: #fff; margin-bottom: 12px; }
+        .faq-answer { color: #cbd5e1; line-height: 1.7; font-size: 1.05rem; }
+        
+        .faq-list { margin-top: 15px; padding-left: 20px; list-style-type: disc; }
+        .faq-list li { margin-bottom: 8px; }
+
+        /* --- Aba: Na Mídia --- */
+        .tv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .tv-card { padding: 30px; text-align: center; border-radius: 12px; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .tv-card:hover { transform: translateY(-5px); }
+        .logo-emissora { font-size: 2rem; font-weight: 900; margin-bottom: 15px; letter-spacing: 1px; display: inline-block;}
+
+        /* --- Aba: Depoimentos e Formulário Ao Vivo --- */
+        .testimonials-header { text-align: center; margin-bottom: 30px; }
+        .testimonials-header h2 { color: var(--accent); font-size: 2.5rem; }
+        
+        .testim-layout { display: flex; flex-direction: column; gap: 40px; }
+        
+        .testimonials-grid { display: flex; flex-direction: column; gap: 20px; max-height: 60vh; overflow-y: auto; padding-right: 15px; }
+        .testimonials-grid::-webkit-scrollbar { width: 6px; }
+        .testimonials-grid::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+        
+        .testim-card { padding: 25px; display: flex; flex-direction: column; gap: 15px; animation: slideDown 0.4s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .testim-header { display: flex; align-items: center; gap: 15px; }
+        .testim-header img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
+        .testim-name { font-weight: bold; color: #fff; }
+        .testim-text { font-style: italic; color: #cbd5e1; font-size: 0.95rem; }
+
+        /* Formulário Ao Vivo */
+        .add-comment-box { padding: 35px; text-align: left; margin-top: 20px; border-top: 2px solid var(--glass-border); }
+        .add-comment-box h3 { color: #fff; margin-bottom: 15px; font-size: 1.5rem; text-align: center;}
+        .add-comment-box p { text-align: center; color: #94a3b8; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            border-radius: 8px; color: #fff; font-size: 1rem; transition: 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; background: rgba(0,0,0,0.5); }
+        .btn-submit { background: var(--accent); color: var(--primary); border: none; padding: 15px 25px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; width: 100%; font-size: 1.1rem; text-transform: uppercase; }
+        .btn-submit:hover { background: #e5c048; box-shadow: 0 0 15px rgba(212,175,55,0.4); }
+
+        /* --- Aba: Sobre / Contato --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+        .about-card, .contact-card { padding: 40px; }
+        .about-card h2 { color: var(--accent); margin-bottom: 20px; font-size: 2rem; }
+        .about-card p { color: #cbd5e1; margin-bottom: 15px; line-height: 1.7; font-size: 1.05rem; }
+        
+        .security-badges { display: flex; gap: 10px; margin: 25px 0; flex-wrap: wrap; }
+        .sec-badge { background: rgba(16,185,129,0.1); border: 1px solid var(--success); color: var(--success); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+
+        .contact-methods { margin-top: 25px; }
+        .method { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); }
+        .method-icon { font-size: 1.5rem; }
+        
+        .map-container { width: 100%; height: 300px; border-radius: 12px; overflow: hidden; border: 2px solid var(--glass-border); margin-top: 20px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- Notificações Popup --- */
+        .notifications-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .notif-popup {
+            padding: 15px 20px; border-left: 4px solid var(--whatsapp);
+            transform: translateX(120%); transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex; align-items: center; gap: 12px; min-width: 320px;
+        }
+        .notif-popup.show { transform: translateX(0); }
+        .notif-icon { font-size: 1.5rem; }
+        .notif-content h4 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+        .notif-content p { font-size: 0.85rem; color: #cbd5e1; }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 30px; border-top: 1px solid var(--glass-border); margin-top: 50px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); }
+        footer p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 5px; }
+        .footer-highlight { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <div class="glass-orb orb-1"></div>
+    <div class="glass-orb orb-2"></div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <h1>Diego Sousa S Costa</h1>
+                <p>Especialista em Contratos Bancários</p>
+            </div>
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="openTab('home')">Início</button>
+                <button class="tab-btn" onclick="openTab('faq')">Legislação & Dúvidas</button>
+                <button class="tab-btn" onclick="openTab('midia')">Na Mídia</button>
+                <button class="tab-btn" onclick="openTab('depoimentos')">Depoimentos</button>
+                <button class="tab-btn" onclick="openTab('sobre')">Sobre & Contato</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div id="home" class="tab-content active">
+            <div class="hero-section">
+                <h2>Reduza o Valor das Suas Parcelas e Combata os Juros Abusivos</h2>
+                <p>Atuação especializada e exclusiva contra <strong>JUROS ABUSIVOS</strong>. Reduza o valor das suas parcelas, quite dívidas com descontos reais e proteja seu patrimônio de forma legal e segura.</p>
+                
+                <div class="premium-features">
+                    <span>✨ Atendimento Premium</span>
+                    <span>🔒 Sigilo Bancário Absoluto</span>
+                    <span>⚖️ 100% Amparado por Lei</span>
+                </div>
+
+                <div class="trust-badge">🏆 2.322 Pessoas Atendidas e Protegidas</div>
+            </div>
+
+            <div class="services-badges">
+                <span class="service-badge glass shine-effect">🚗 Financiamento de Veículos</span>
+                <span class="service-badge glass shine-effect">💸 Empréstimos em Geral</span>
+                <span class="service-badge glass shine-effect">📉 Reduzir Parcelas</span>
+                <span class="service-badge glass shine-effect">🤝 Quitar Dívidas</span>
+                <span class="service-badge glass highlight shine-effect">✨ Limpeza de Nome</span>
+            </div>
+            
+            <p style="text-align: center; color: #cbd5e1; font-size: 1rem; margin-top: -10px; margin-bottom: 40px; font-style: italic; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; display: inline-block; left: 50%; position: relative; transform: translateX(-50%); border: 1px solid var(--glass-border);">
+                * O valor de contratação do serviço é <strong>ÚNICO</strong> e válido para a resolução de <strong>qualquer um</strong> dos contratos listados acima.
+            </p>
+
+            <div class="offer-grid">
+                
+                <div class="process-info glass">
+                    <h3>Como o processo funciona:</h3>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">1</div>
+                        <div class="step-text">
+                            <h4>Análise Prévia 100% Gratuita</h4>
+                            <p>Você envia seus dados ou contrato. Nossa equipe avalia sem nenhum custo se existe irregularidade e se vale a pena recorrer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">2</div>
+                        <div class="step-text">
+                            <h4>Decisão de Contratação Formal</h4>
+                            <p>Apresentamos o cenário. <strong>Você só paga pelo serviço se decidir fechar o contrato</strong> conosco para seguirmos com a defesa.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-icon">3</div>
+                        <div class="step-text">
+                            <h4>Perícia e Defesa Administrativa</h4>
+                            <p>Com o contrato assinado, iniciamos a perícia contábil oficial e a notificação extrajudicial do banco com base no Código do Consumidor.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-icon">4</div>
+                        <div class="step-text">
+                            <h4><span class="highlight-reduction">Resolução, Quitação e Limpeza</span></h4>
+                            <p>Forçamos a negociação amigável para a redução da parcela, quitação com desconto da dívida e regularização total do seu CPF.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-card glass">
+                    <div class="discount-badge">ANÁLISE GRÁTIS</div>
+                    <h3 style="color: var(--success); font-size: 2rem;">Análise Prévia 100% Gratuita</h3>
+                    <p style="color:#cbd5e1; margin-bottom:15px; font-size:1.05rem; line-height: 1.5;">
+                        Descubra hoje mesmo se você tem direito. Você <strong>só paga o valor abaixo</strong> caso decida formalizar o contrato de serviço e fechar negócio conosco.
+                    </p>
+                    
+                    <div class="price-box">
+                        <p style="font-size: 0.95rem; color: #cbd5e1; font-weight: bold; margin-bottom: 5px;">Valor Único para Qualquer Contrato (Se você aceitar):</p>
+                        <div class="old-price">De R$ 1.599,00</div>
+                        <div class="new-price">R$ 599,00</div>
+                        
+                        <p style="font-size: 0.85rem; color: var(--success); font-weight: bold; margin-top: 10px; margin-bottom: 0;">
+                            ✅ Não cobramos honorários advocatícios.
+                        </p>
+                        <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.4; margin-top: 5px;">
+                            * Taxa única referente à documentação técnica e prestação de serviço de negociação. Sem porcentagem sobre sua economia.
+                        </p>
+
+                        <div class="payment-methods shine-effect">
+                            <p>💳 Opções de Pagamento Facilitadas:</p>
+                            <ul>
+                                <li>✅ <strong>Até 12x no Cartão</strong> de crédito (com acréscimo de 30%)</li>
+                                <li>✅ <strong>Boleto Bancário</strong> parcelado em até 3x</li>
+                                <li>✅ <strong>PIX</strong> com início imediato dos trabalhos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="spots-container shine-effect">
+                        <div class="spots-text">Promoção válida apenas para os primeiros 15 clientes do dia.<br><span>🚨 8 vagas já foram preenchidas!</span></div>
+                        <div class="spots-bar"><div class="spots-fill"></div></div>
+                    </div>
+                    
+                    <div class="countdown">
+                        <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+                        <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
+                        <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
+                    </div>
+
+                    <p style="color: var(--accent); font-size: 0.95rem; font-weight: bold; margin-bottom: 15px;">
+                        ⏳ Envie uma mensagem agora para pré-cadastrar e garantir a sua vaga na promoção!
+                    </p>
+
+                    <div class="btn-group">
+                        <a href="https://wa.me/5511966179315?text=Olá,%20acessei%20o%20site%20e%20gostaria%20de%20fazer%20minha%20ANÁLISE%20GRATUITA.%20Por%20favor,%20pré-cadastre%20minha%20vaga%20para%20garantir%20o%20valor%20promocional%20de%20R$%20599,00!" target="_blank" class="btn-action">
+                            SOLICITAR ANÁLISE E GARANTIR VAGA
+                        </a>
+                        
+                        <a href="https://wa.me/5511966179315?text=Olá,%20quero%20verificar%20sobre%20juros%20abusivos%20e%20gostaria%20de%20NEGOCIAR%20O%20VALOR%20do%20serviço." target="_blank" class="btn-secondary">
+                            QUERO VERIFICAR JUROS E NEGOCIAR VALOR
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div id="faq" class="tab-content">
+            <div class="faq-section glass">
+                <h2>Base Legal e Transparência Absoluta</h2>
+                
+                <div class="law-section glass">
+                    <h3>⚖️ É um Direito Seu, Não um Favor do Banco</h3>
+                    <p>Muitas pessoas têm medo de buscar seus direitos contra instituições financeiras. Mas o nosso trabalho é <strong>100% amparado pelas leis brasileiras</strong>.</p>
+                    <p>O <strong>Código de Defesa do Consumidor (CDC)</strong>, especificamente nos artigos 39 e 51, proíbe expressamente que os bancos exijam vantagens manifestamente excessivas (como taxas embutidas e seguros não solicitados). Além disso, a <strong>Súmula 539 do STJ</strong> e as resoluções do Banco Central (BACEN) ditam regras rígidas sobre o Custo Efetivo Total (CET).</p>
+                    
+                    <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0;">
+                        <p style="color: #fff; font-weight: bold; margin-bottom: 5px;">📜 Artigo 42, Parágrafo Único (CDC):</p>
+                        <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.5; margin: 0;"><em>"O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais..."</em></p>
+                        <p style="color: var(--success); font-weight: bold; font-size: 0.95rem; margin-top: 8px;">Isso significa que o banco não só precisa corrigir a sua parcela, mas pode ser obrigado a abater ou devolver o que você já pagou a mais.</p>
+                    </div>
+                    <p style="margin-top: 15px;">Se o seu financiamento de veículo ou empréstimo está fora dessas regras, <span class="law-highlight">o contrato é nulo naquelas cláusulas e o banco é obrigado por lei a renegociar os valores</span>, devolvendo ou abatendo o que foi cobrado a mais.</p>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">1. Detalhamento: Como funciona cada opção de resolução?</div>
+                    <div class="faq-answer">
+                        Nosso laudo técnico forçará o banco a negociar de forma amigável. A partir daí, buscamos os seguintes caminhos dependendo do seu objetivo:
+                        <ul class="faq-list">
+                            <li><strong>Redução de Parcelas:</strong> O banco emite um novo carnê com o valor readequado (muitas vezes reduzindo de 30% a 50%), e você continua pagando normalmente, porém o preço justo.</li>
+                            <li><strong>Quitação com Mega Desconto:</strong> Se você deseja se livrar logo da dívida, usamos o juros abusivo como moeda de troca para o banco aceitar a quitação à vista com descontos que chegam a 80%.</li>
+                            <li><strong>Limpeza de Nome (Reabilitação de Crédito):</strong> Se o seu CPF foi negativado devido a essas parcelas abusivas que você não conseguiu pagar, a renegociação amigável inclui a imediata baixa da restrição nos órgãos de proteção (SPC/Serasa/Boa Vista).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">2. Tem certeza que a análise é gratuita? Como funciona o pagamento?</div>
+                    <div class="faq-answer">
+                        Absoluta. O passo número 1 é analisar o seu caso. Você nos chama no WhatsApp, relata o problema e a equipe do Diego faz a leitura do contrato/situação. <strong>Se identificarmos que NÃO há abuso, não cobramos absolutamente nada de você.</strong> <br><br>Se identificarmos que HÁ dinheiro seu sendo roubado nos juros, nós propomos o serviço. É só neste momento que você decide se quer assinar o nosso contrato de prestação de serviço, onde pagará a taxa promocional única de R$ 599,00 para execução da Perícia, Emissão do Laudo e toda a Negociação Extrajudicial (seja para veículo, empréstimo ou cartão). Tudo claro e documentado.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">3. Existe risco de Busca e Apreensão do meu veículo?</div>
+                    <div class="faq-answer">
+                        Este é o maior medo de todo consumidor, e nós sabemos como tratar isso. Atuamos de forma estratégica. Ao iniciarmos a negociação amigável fundamentada em laudo pericial contábil, mostramos ao banco que a cobrança deles está errada. Durante nosso acompanhamento, forneceremos todas as diretrizes de segurança para <strong>proteger o seu bem</strong> enquanto o acordo final é construído.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">4. Vocês cobram honorários advocatícios sobre o que eu economizar?</div>
+                    <div class="faq-answer">
+                        <strong style="color:var(--accent);">NÃO!</strong> Diferente de muitos escritórios, nós <strong>não cobramos honorários advocatícios</strong> nem porcentagem nenhuma sobre a economia que conseguimos para você. O valor que você paga (R$ 599,00 à vista, ou parcelado no cartão/boleto) é uma taxa única referente apenas à emissão da documentação, elaboração do laudo e a nossa prestação de serviço técnico. Todo o dinheiro economizado do banco fica 100% com você.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="midia" class="tab-content">
+            <div class="faq-section glass">
+                <h2 style="text-align:center; color: var(--accent); margin-bottom: 20px; font-size: 2.5rem;">Destaque Nacional na Mídia</h2>
+                <p style="text-align:center; color: #cbd5e1; font-size: 1.1rem; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    A pauta sobre a <strong>revisão de juros abusivos</strong> e os direitos dos consumidores não sai da TV. Nossos alertas sobre abusos bancários ganham força e validação diariamente nas maiores emissoras e programas jornalísticos do Brasil.
+                </p>
+
+                <div class="tv-grid">
+
+                    <div class="tv-card glass shine-effect" style="border-top: 4px solid #fff;">
+                        <div class="logo-emissora" style="background: linear-gradient(to right, #00A3E0, #FFC72C, #E31837); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SBT</div>
+                        <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 5px; text-transform: uppercase;">Primeiro Impacto</h4>
+                        <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">Denúncias diárias sobre as armadilhas ocultas dos financiamentos e como o consumidor pode agir para se defender legalmente.</p>
+                    </div>
+
+                    <div class="tv-card glass shine-effect" style="border-top: 4px solid #005E9A;">
+                        <div class="logo-emissora" style="color: #005E9A; text-shadow: 0 0 5px rgba(0,94,154,0.5);">RECORD</div>
+                        <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 5px; text-transform: uppercase;">Cidade Alerta</h4>
+                        <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">Casos reais de brasileiros que sofreram com juros abusivos de bancos e a importância de uma revisão técnica contratual.</p>
+                    </div>
+
+                    <div class="tv-card glass shine-effect" style="border-top: 4px solid #005E9A;">
+                        <div class="logo-emissora" style="color: #005E9A; text-shadow: 0 0 5px rgba(0,94,154,0.5);">RECORD</div>
+                        <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 5px; text-transform: uppercase;">Balanço Geral <span style="color:var(--accent); font-size:0.9rem; display:block;">com Gottino</span></h4>
+                        <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">Quadros focados na defesa do consumidor, mostrando os caminhos exatos para limpar o nome e reduzir dívidas injustas.</p>
+                    </div>
+
+                    <div class="tv-card glass shine-effect" style="border-top: 4px solid #00A650;">
+                        <div class="logo-emissora" style="background: linear-gradient(to right, #00A650, #FFC72C); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">BAND</div>
+                        <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 5px; text-transform: uppercase;">Jogo Aberto</h4>
+                        <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.5;">Destaque para o planejamento financeiro das famílias e a renegociação técnica de dívidas veiculares atrasadas.</p>
+                    </div>
+
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <p style="font-size: 1.1rem; color: var(--success); font-weight: bold; margin-bottom: 25px;">
+                        Você tem o direito garantido por lei de não ser explorado. Faça como milhares de brasileiros que estão descobrindo isso na TV!
+                    </p>
+                    <a href="https://wa.me/5511966179315?text=Olá,%20vi%20na%20mídia%20sobre%20os%20juros%20abusivos%20e%20gostaria%20de%20fazer%20minha%20ANÁLISE%20GRATUITA!" target="_blank" class="btn-action" style="max-width: 500px; margin: 0 auto;">
+                        SOLICITAR MINHA ANÁLISE AGORA
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="depoimentos" class="tab-content">
+            <div class="testimonials-header">
+                <h2>A Voz de Quem Já Resolveu</h2>
+                <p>Veja os resultados reais de clientes que limparam o nome, quitaram dívidas e melhoraram suas parcelas.</p>
+            </div>
+            
+            <div class="testim-layout">
+                <div class="testimonials-grid" id="testim-container"></div>
+                
+                <div class="add-comment-box glass">
+                    <h3>Avalie Nossos Serviços</h3>
+                    <p>⚠️ Área exclusiva. Para garantir a total transparência, depoimentos só podem ser enviados por clientes já atendidos mediante verificação de contrato.</p>
+                    <form id="live-comment-form">
+                        <div class="form-group">
+                            <input type="text" id="clientName" placeholder="Seu Nome Completo" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="clientText" rows="3" placeholder="Como o nosso trabalho ajudou você? Relate a redução, quitação ou limpeza do seu nome." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Publicar Depoimento Oficial</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="sobre" class="tab-content">
+            <div class="about-grid">
+                
+                <div class="about-card glass">
+                    <h2>Diego Sousa Silva da Costa</h2>
+                    <p>Prazer, eu sou o especialista responsável pela sua defesa. Atuo <strong>há 8 anos</strong> de forma intensiva na área de perícia de contratos bancários, reabilitação de crédito (limpeza de nome) e defesa contra abusos do sistema financeiro nacional.</p>
+                    <p>Acredito que a confiança é a base de tudo. É por isso que criei o modelo de <strong>Análise Prévia 100% Gratuita</strong>. Eu só quero que você seja meu cliente se houver base real para reduzir a sua dívida. Todo o nosso trabalho é feito mediante assinatura de contrato formal, garantindo as obrigações do meu escritório para com você.</p>
+                    
+                    <div class="security-badges">
+                        <span class="sec-badge">🔒 Ambiente 100% Seguro e Sigiloso</span>
+                        <span class="sec-badge">🛡️ Adequado e Protegido pela LGPD</span>
+                        <span class="sec-badge">📜 Contrato Formal de Prestação de Serviço</span>
+                        <span class="sec-badge">✅ CNPJ Verificado</span>
+                    </div>
+
+                    <div class="contact-methods">
+                        <h3 style="color:#fff; margin-bottom: 15px; font-size:1.2rem;">Canais Oficiais de Atendimento:</h3>
+                        <div class="method">
+                            <span class="method-icon">💬</span> <span><strong>WhatsApp Direto:</strong> Ideal para envio seguro de contratos e análise gratuita.</span>
+                        </div>
+                        <div class="method">
+                            <span class="method-icon">📞</span> <span><strong>Ligação Tradicional:</strong> Para explicar o passo a passo e tirar todas as dúvidas na hora.</span>
+                        </div>
+                        <div class="method">
+                            <span class="method-icon">📹</span> <span><strong>Chamada de Vídeo:</strong> Reunião online para leitura conjunta do laudo, olho no olho.</span>
+                        </div>
+                        <div class="method">
+                            <span class="method-icon">🤝</span> <span><strong>Atendimento Presencial:</strong> Escritório aberto de segunda a sexta para sua total segurança.</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://wa.me/5511966179315?text=Olá,%20li%20sobre%20seu%20trabalho%20e%20quero%20minha%20ANÁLISE%20GRATUITA!" target="_blank" class="btn-action" style="margin-top:20px; text-align:center;">FALAR COM O DIEGO AGORA</a>
+                </div>
+
+                <div class="contact-card glass">
+                    <h3 style="color:var(--accent); font-size:1.8rem; margin-bottom:15px;">Nosso Escritório Físico</h3>
+                    <p style="font-size:1.1rem; color:#fff;"><strong>Endereço Sede:</strong> Avenida Celso Garcia, 4025 (Entrada pela lateral: R. Dom Andrés Lamas, 46) - Tatuapé</p>
+                    <p style="font-size:1rem; color:#cbd5e1;">São Paulo / SP | CEP 030084-020</p>
+                    <p style="font-size:1rem; color:#cbd5e1; margin-top:10px;"><strong>Telefone Fixo / Central WhatsApp:</strong> (11) 96617-9315</p>
+                    
+                    <p style="margin-top: 20px; font-size: 0.95rem; color: #94a3b8; font-style: italic;">Sinta-se à vontade para nos visitar e tomar um café enquanto avaliamos seu contrato presencialmente.</p>
+
+                    <div style="margin-top: 20px; border-radius: 12px; overflow: hidden; border: 2px solid var(--glass-border); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                        <img src="endereço.jpeg" alt="Fachada do Escritório Diego Sousa S Costa" style="width: 100%; height: auto; display: block;">
+                    </div>
+
+                    <div class="map-container">
+                        <iframe src="https://maps.google.com/maps?q=R.%20Dom%20Andr%C3%A9s%20Lamas,%2046%20-%20Tatuap%C3%A9,%20S%C3%A3o%20Paulo&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p class="footer-highlight">Diego Sousa Silva da Costa - Especialista em Contratos Bancários e Reabilitação de Crédito</p>
+        <p>Atendimento Presencial, Online (Vídeo) ou por WhatsApp | CNPJ Verificado</p>
+        <p>📍 R. Dom Andrés Lamas, 46 - Tatuapé, São Paulo / SP</p>
+    </footer>
+
+    <div class="notifications-wrapper">
+        <div class="notif-popup glass" id="popup-msg">
+            <div class="notif-icon">✅</div>
+            <div class="notif-content">
+                <h4 id="popup-title">Resolução Concluída</h4>
+                <p id="popup-text">Cliente economizou R$ 9.200</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Troca de Abas Inteligente ---
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 2. Contador Regressivo (Meia-noite do Relógio do Windows/Dispositivo) ---
+        function updateClock() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+
+            const diff = midnight - now;
+
+            if (diff > 0) {
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('hours').innerText = String(h).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+            }
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- 3. Sistema de Depoimentos ao Vivo & Base Injetada ---
+        const container = document.getElementById('testim-container');
+        
+        function createCardHTML(name, text, photoUrl) {
+            return `
+                <div class="testim-card glass">
+                    <div class="testim-header">
+                        <img src="${photoUrl}" alt="Cliente">
+                        <div>
+                            <div class="testim-name">${name}</div>
+                            <span style="font-size:0.75rem; color:var(--success); background:rgba(16,185,129,0.1); padding:2px 8px; border-radius:10px;">Cliente Atendido (Nº de Proteção Verificado)</span>
+                        </div>
+                    </div>
+                    <div class="testim-text">"${text}"</div>
+                </div>
+            `;
+        }
+
+        const exampleNames = ["Roberto Alves", "Juliana Mendes", "Carlos Silva", "Amanda Costa", "Fernando Reis"];
+        const exampleFeedbacks = [
+            "Enviei meu contrato para análise gratuita pelo WhatsApp. Eles acharam os erros, eu fechei o serviço e o Diego conseguiu diminuir quase 40% da parcela do meu carro.",
+            "Tinha medo de sujar o nome, mas a negociação extrajudicial deles funcionou perfeitamente. O laudo é todo embasado em lei. Resolvido sem processo judicial.",
+            "Eu estava com o nome sujo por causa de um empréstimo absurdo. O acordo que eles fizeram com o banco limpou meu nome e ainda quitei com um mega desconto.",
+            "Atendimento presencial nota 10 no Tatuapé. A primeira análise não custou nada, Diego explica tudo mostrando as cláusulas erradas.",
+            "Valeu muito a pena contratar o serviço. Assinamos tudo direitinho, recebi o contrato e a minha dívida do financiamento teve uma redução incrível. Muito transparente."
+        ];
+
+        let initialHTML = "";
+        for(let i = 0; i < exampleNames.length; i++) {
+            let gender = i % 2 === 0 ? 'men' : 'women';
+            initialHTML += createCardHTML(exampleNames[i], exampleFeedbacks[i], `https://randomuser.me/api/portraits/${gender}/${i+20}.jpg`);
+        }
+        container.innerHTML = initialHTML;
+
+        // Lógica do Formulário Ao Vivo COM TRAVA DE SEGURANÇA
+        document.getElementById('live-comment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Abre a caixa de verificação do número de contrato
+            const contrato = prompt("🔒 Verificação de Segurança:\\nPor favor, informe o número do seu Contrato de Prestação de Serviços para validar o depoimento:");
+
+            if(!contrato || contrato.trim() === "") {
+                alert("❌ Acesso Negado: O número do contrato é obrigatório para publicar um depoimento.");
+                return;
+            }
+
+            // Se o cliente colocar algo no prompt, o comentário é postado
+            const name = document.getElementById('clientName').value;
+            const text = document.getElementById('clientText').value;
+            const defaultPhoto = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(name) + '&background=d4af37&color=0f172a&bold=true';
+            
+            const newCardHTML = createCardHTML(name, text, defaultPhoto);
+            container.insertAdjacentHTML('beforeend', newCardHTML); 
+            this.reset();
+            alert("✅ Verificado! Muito obrigado pelo seu depoimento oficial!");
+        });
+
+        // --- 4. Sistema de Notificações Pipocando ---
+        const notifData = [
+            { title: "Pré-Cadastro Efetuado", text: "Mais um cliente reservou a vaga promocional." },
+            { title: "Limpeza de Nome!", text: "Nome de cliente reabilitado após acordo com banco." },
+            { title: "Contrato Assinado", text: "Cliente garantiu o valor único e não pagará honorários." },
+            { title: "Quitação com Desconto", text: "Empréstimo quitado com 70% de desconto." }
+        ];
+        
+        let notifIndex = 0;
+        const popup = document.getElementById('popup-msg');
+        
+        function showNotification() {
+            let data = notifData[notifIndex];
+            document.getElementById('popup-title').innerText = data.title;
+            document.getElementById('popup-text').innerText = data.text;
+            
+            popup.classList.add('show');
+            setTimeout(() => { popup.classList.remove('show'); }, 4500);
+            notifIndex = (notifIndex + 1) % notifData.length;
+        }
+
+        setTimeout(() => { showNotification(); setInterval(showNotification, 18000); }, 6000);
+
+    </script>
+</body>
+</html>
